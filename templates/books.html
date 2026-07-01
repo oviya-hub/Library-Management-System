@@ -3,67 +3,77 @@
 
 <head>
 
-    <title>Manage Books</title>
+<title>Manage Books</title>
 
-    <style>
+<style>
 
-        body{
-            font-family:Arial;
-            background:#f4f4f4;
-            margin:40px;
-        }
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    margin:40px;
+}
 
-        .container{
-            width:1000px;
-            margin:auto;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0px 0px 10px lightgray;
-        }
+.container{
+    width:1000px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px lightgray;
+}
 
-        h1{
-            text-align:center;
-        }
+h1{
+    text-align:center;
+}
 
-        h2{
-            margin-top:40px;
-        }
+h2{
+    margin-top:40px;
+}
 
-        table{
-            width:100%;
-            border-collapse:collapse;
-            margin-top:20px;
-        }
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
 
-        th,td{
-            border:1px solid lightgray;
-            padding:10px;
-            text-align:left;
-        }
+th,td{
+    border:1px solid lightgray;
+    padding:10px;
+    text-align:left;
+}
 
-        input{
-            width:100%;
-            padding:10px;
-            font-size:16px;
-            box-sizing:border-box;
-        }
+input{
+    width:100%;
+    padding:10px;
+    font-size:16px;
+    box-sizing:border-box;
+}
 
-        .button{
-            background:#2563eb;
-            color:white;
-            border:none;
-            padding:12px 25px;
-            border-radius:5px;
-            cursor:pointer;
-            font-size:16px;
-        }
+.button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
 
-        .button:hover{
-            background:#1d4ed8;
-        }
+.button:hover{
+    background:#1d4ed8;
+}
 
-    </style>
+.action{
+    text-decoration:none;
+    font-weight:bold;
+    margin-right:10px;
+}
+
+.delete{
+    color:red;
+}
+
+</style>
 
 </head>
 
@@ -160,6 +170,7 @@ Search
 <th>Year</th>
 <th>ISBN</th>
 <th>Copies</th>
+<th>Actions</th>
 
 </tr>
 
@@ -175,6 +186,19 @@ Search
 <td>{{ book.year_published }}</td>
 <td>{{ book.isbn }}</td>
 <td>{{ book.copies }}</td>
+
+<td>
+
+<a
+class="action delete"
+href="{{ url_for('books.delete_book', id=book.id) }}"
+onclick="return confirm('Delete this book?')">
+
+🗑 Delete
+
+</a>
+
+</td>
 
 </tr>
 

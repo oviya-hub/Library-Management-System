@@ -58,15 +58,6 @@ def manage_books():
 @books.route("/save_book", methods=["POST"])
 def save_book():
 
-    accession_no = request.form["accession_no"]
-    title = request.form["title"]
-    author = request.form["author"]
-    category = request.form["category"]
-    publisher = request.form["publisher"]
-    year_published = request.form["year_published"]
-    isbn = request.form["isbn"]
-    copies = request.form["copies"]
-
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -82,18 +73,41 @@ def save_book():
             isbn,
             copies
         )
-        VALUES
-        (%s,%s,%s,%s,%s,%s,%s,%s)
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
     """, (
-        accession_no,
-        title,
-        author,
-        category,
-        publisher,
-        year_published,
-        isbn,
-        copies
+
+        request.form["accession_no"],
+        request.form["title"],
+        request.form["author"],
+        request.form["category"],
+        request.form["publisher"],
+        request.form["year_published"],
+        request.form["isbn"],
+        request.form["copies"]
+
     ))
+
+    connection.commit()
+
+    cursor.close()
+    connection.close()
+
+    return redirect(url_for("books.manage_books"))
+
+
+# ----------------------------
+# Delete Book
+# ----------------------------
+@books.route("/delete_book/<int:id>")
+def delete_book(id):
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "DELETE FROM books WHERE id=%s",
+        (id,)
+    )
 
     connection.commit()
 
