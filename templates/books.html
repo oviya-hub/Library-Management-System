@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Manage Books</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            margin:40px;
+        }
+
+        .container{
+            width:1000px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px lightgray;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        h2{
+            margin-top:40px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            border:1px solid lightgray;
+            padding:10px;
+            text-align:left;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            font-size:16px;
+            box-sizing:border-box;
+        }
+
+        .button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:12px 25px;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        .button:hover{
+            background:#1d4ed8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 Manage Books</h1>
+
+<form action="/save_book" method="POST">
+
+<table>
+
+<tr>
+<td>Accession Number</td>
+<td><input type="text" name="accession_no" required></td>
+</tr>
+
+<tr>
+<td>Book Title</td>
+<td><input type="text" name="title" required></td>
+</tr>
+
+<tr>
+<td>Author</td>
+<td><input type="text" name="author"></td>
+</tr>
+
+<tr>
+<td>Category</td>
+<td><input type="text" name="category"></td>
+</tr>
+
+<tr>
+<td>Publisher</td>
+<td><input type="text" name="publisher"></td>
+</tr>
+
+<tr>
+<td>Year Published</td>
+<td><input type="number" name="year_published"></td>
+</tr>
+
+<tr>
+<td>ISBN</td>
+<td><input type="text" name="isbn"></td>
+</tr>
+
+<tr>
+<td>Copies</td>
+<td><input type="number" name="copies" value="1"></td>
+</tr>
+
+<tr>
+<td></td>
+<td>
+<button class="button" type="submit">
+Save Book
+</button>
+</td>
+</tr>
+
+</table>
+
+</form>
+
+<h2>📖 Book List</h2>
+
+<form action="/books" method="GET">
+
+<input
+type="text"
+name="search"
+placeholder="Search by Accession Number, Title, Author or Category"
+value="{{ search }}">
+
+<br><br>
+
+<button class="button" type="submit">
+Search
+</button>
+
+</form>
+
+<table>
+
+<tr>
+
+<th>Accession</th>
+<th>Title</th>
+<th>Author</th>
+<th>Category</th>
+<th>Publisher</th>
+<th>Year</th>
+<th>ISBN</th>
+<th>Copies</th>
+
+</tr>
+
+{% for book in books %}
+
+<tr>
+
+<td>{{ book.accession_no }}</td>
+<td>{{ book.title }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.category }}</td>
+<td>{{ book.publisher }}</td>
+<td>{{ book.year_published }}</td>
+<td>{{ book.isbn }}</td>
+<td>{{ book.copies }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+
+</html>
